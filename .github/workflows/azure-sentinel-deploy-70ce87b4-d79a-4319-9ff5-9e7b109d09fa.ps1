@@ -330,7 +330,8 @@ function IsValidResourceType($template) {
             $template.resources.PsObject.Properties |  ForEach-Object {
                 $obj = $_.Value
                 $type = ($obj.type -split "@", 2)[0]
-                $isAllowedResources = $resourceTypes.contains($_.type.ToLower()) -and $isAllowedResources
+                Write-Host "[Warning] resource type is $type"
+                $isAllowedResources = $resourceTypes.contains($type.ToLower()) -and $isAllowedResources
             }
         }
         else {
