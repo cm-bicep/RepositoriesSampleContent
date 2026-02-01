@@ -325,8 +325,8 @@ function IsRetryable($deploymentName) {
 function IsValidResourceType($template) {
     try {
         $isAllowedResources = $true
-
-        if ($temp.languageVersion) {
+        if ($template.languageVersion) {
+            Write-Host "[Warning] resource type is $temp.languageVersion"
             $template.resources.PsObject.Properties |  ForEach-Object {
                 $obj = $_.Value
                 $type = ($obj.type -split "@", 2)[0]
