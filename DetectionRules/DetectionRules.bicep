@@ -1,8 +1,8 @@
 extension MicrosoftSecurity
 
-// targetScope = 'tenant' 
+// targetScope = 'tenant'
 
-resource detection_rule1 'Microsoft.Security/detectionRules@2026-01-01-preview' = {
+resource detection_rule12 'Microsoft.Security/detectionRules@2026-01-01-preview' = {
   displayName: 'test bicep detection rule'
   isEnabled: true
   queryCondition: {
