@@ -204,8 +204,8 @@ function AttemptDeployMetadata($deploymentName, $resourceGroupName, $templateObj
         if ($sentinelContentKinds.Count -gt 0) {
             $contentKind = ToContentKind $sentinelContentKinds $resource $templateObject
 
-            if ($contentKind -eq "CustomDetection") {
-                Write-Host "[Info] Skipping metadata deployment for CustomDetection content."
+            if ($contentKind -eq "DetectionRule") {
+                Write-Host "[Info] Skipping metadata deployment for DetectionRule content."
                 return
             }
 
