@@ -325,12 +325,10 @@ function IsRetryable($deploymentName) {
 function IsValidResourceType($template) {
     try {
         $isAllowedResources = $true
-        if ($template.languageVersion) {
-            Write-Host "[Warning] resource type is $temp.languageVersion"
+        if ($template.languageVersion -eq '2.0') {
             $template.resources.PsObject.Properties |  ForEach-Object {
                 $obj = $_.Value
-                $type = ($obj.type -split "@", 2)[0]
-                Write-Host "[Warning] resource type is $type"
+                $type = ($obj.type -split "@", 2)[0] # removes @api-version suffix for non-ARM types
                 $isAllowedResources = $resourceTypes.contains($type.ToLower()) -and $isAllowedResources
             }
         }
