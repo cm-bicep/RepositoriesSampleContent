@@ -12,7 +12,7 @@ $contentTypeMapping = @{
     "Parser"=@("Microsoft.OperationalInsights/workspaces/savedSearches");
     "Playbook"=@("Microsoft.Web/connections", "Microsoft.Logic/workflows", "Microsoft.Web/customApis");
     "Workbook"=@("Microsoft.Insights/workbooks");
-    "CustomDetection"=@("Microsoft.XDR/customDetections");
+    "DetectionRule"=@("Microsoft.Security/detectionRules");
 }
 $sourceControlId = $Env:sourceControlId
 $rootDirectory = $Env:rootDirectory
@@ -38,7 +38,6 @@ $sentinelResourcePatterns = @{
     "Parser" = "/subscriptions/$guidPattern/resourceGroups/$namePattern/providers/Microsoft.OperationalInsights/workspaces/$namePattern/savedSearches/$namePattern"
     "Playbook" = "/subscriptions/$guidPattern/resourceGroups/$namePattern/providers/Microsoft.Logic/workflows/$namePattern"
     "Workbook" = "/subscriptions/$guidPattern/resourceGroups/$namePattern/providers/Microsoft.Insights/workbooks/$namePattern"
-    "CustomDetection" = "/subscriptions/$guidPattern/resourceGroups/$namePattern/providers/Microsoft.XDR/customDetections/$namePattern"
 }
 
 if ([string]::IsNullOrEmpty($contentTypes)) {
@@ -326,8 +325,17 @@ function IsRetryable($deploymentName) {
 function IsValidResourceType($template) {
     try {
         $isAllowedResources = $true
-        $template.resources | ForEach-Object {
-            $isAllowedResources = $resourceTypes.contains($_.type.ToLower()) -and $isAllowedResources
+        if ($template.languageVersion -eq '2.0') {
+            $template.resources.PsObject.Properties |  ForEach-Object {
+                $obj = $_.Value
+                $type = ($obj.type -split "@", 2)[0] # removes @api-version suffix for non-ARM types
+                $isAllowedResources = $resourceTypes.contains($type.ToLower()) -and $isAllowedResources
+            }
+        }
+        else {
+            $template.resources | ForEach-Object {
+                $isAllowedResources = $resourceTypes.contains($_.type.ToLower()) -and $isAllowedResources
+            }
         }
     }
     catch {
@@ -646,5 +654,6 @@ function main() {
     $fullDeploymentFlag = $modifiedConfig -or ($smartDeployment -eq "false")
     Deployment $fullDeploymentFlag $remoteShaTable $tree
 }
+
 
 main
