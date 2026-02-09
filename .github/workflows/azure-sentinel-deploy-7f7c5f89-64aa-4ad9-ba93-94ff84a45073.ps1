@@ -13,6 +13,7 @@ $contentTypeMapping = @{
     "Playbook"=@("Microsoft.Web/connections", "Microsoft.Logic/workflows", "Microsoft.Web/customApis");
     "Workbook"=@("Microsoft.Insights/workbooks");
     "CustomDetection"=@("Microsoft.Security/detectionRules");
+	"Application"=@("Microsoft.Graph/applications");
 }
 $sourceControlId = $Env:sourceControlId
 $rootDirectory = $Env:rootDirectory
@@ -666,5 +667,6 @@ function main() {
     $fullDeploymentFlag = $modifiedConfig -or ($smartDeployment -eq "false")
     Deployment $fullDeploymentFlag $remoteShaTable $tree
 }
+
 
 main
