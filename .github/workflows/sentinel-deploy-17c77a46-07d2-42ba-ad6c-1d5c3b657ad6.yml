@@ -88,7 +88,7 @@ jobs:
       with:
         azPSVersion: "latest"
         inlineScript: |
-          $token = Get-AzAccessToken -AsSecureString | ConvertFrom-SecureString -AsPlainText
+          $token = Get-AzAccessToken
           Write-Host $token
 
     - name: Checkout
@@ -101,4 +101,5 @@ jobs:
         inlineScript: |
 
           ${{ github.workspace }}//.github/workflows/azure-sentinel-deploy-17c77a46-07d2-42ba-ad6c-1d5c3b657ad6.ps1
+
 
