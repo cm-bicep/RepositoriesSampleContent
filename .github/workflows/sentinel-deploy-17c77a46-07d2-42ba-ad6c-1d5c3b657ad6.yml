@@ -48,6 +48,7 @@ jobs:
         environment: 'AzureCloud'
         audience: api://AzureADTokenExchange
         enable-AzPSSession: true
+        auth-type: 'IDENTITY'
 
     - name: Wait 30 seconds if login attempt 1 failed
       if: ${{ steps.login1.outcome=='failure' }}
@@ -91,4 +92,5 @@ jobs:
       with:
         azPSVersion: 'latest'
         inlineScript: |
+
           ${{ github.workspace }}//.github/workflows/azure-sentinel-deploy-17c77a46-07d2-42ba-ad6c-1d5c3b657ad6.ps1
