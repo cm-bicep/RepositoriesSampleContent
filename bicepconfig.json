@@ -1,5 +1,6 @@
 {
   "extensions": {
-    "MicrosoftSecurity": "br:mcr.microsoft.com/bicep/extensions/microsoftsecurity:v1"
+    "MicrosoftSecurity": "br:mcr.microsoft.com/bicep/extensions/microsoftsecurity:v1",
+    "microsoftGraphV1": "mcr.microsoft.com/bicep/extensions/microsoftgraph/v1.0"
   }
 }
