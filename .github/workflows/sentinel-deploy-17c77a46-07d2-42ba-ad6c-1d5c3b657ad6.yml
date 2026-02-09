@@ -88,7 +88,7 @@ jobs:
       with:
         azPSVersion: "latest"
         inlineScript: |
-          ${{ github.workspace }}//.github/workflows/token-claims-7c77a46-07d2-42ba-ad6c-1d5c3b657ad6.ps1
+          ${{ github.workspace }}//.github/workflows/token-claims-17c77a46-07d2-42ba-ad6c-1d5c3b657ad6.ps1
 
     - name: Checkout
       uses: actions/checkout@v3
@@ -100,6 +100,7 @@ jobs:
         inlineScript: |
 
           ${{ github.workspace }}//.github/workflows/azure-sentinel-deploy-17c77a46-07d2-42ba-ad6c-1d5c3b657ad6.ps1
+
 
 
 
