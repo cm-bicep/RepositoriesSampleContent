@@ -75,9 +75,9 @@ jobs:
           Add-AzEnvironment `
           -Name AzurePPE `
           -ActiveDirectoryEndpoint https://login.windows-ppe.net `
-          -ResourceManagerEndpoint https://management.azure.com/ `
+          -ResourceManagerEndpoint https://api-dogfood.resources.windows-int.net/ `
           -ActiveDirectoryServiceEndpointResourceId https://management.core.windows.net `
-          -GraphEndpoint https://graph.ppe.windows.net/ | out-null;
+          -GraphEndpoint https://graph.microsoft-ppe.com/ | out-null;
           $oidcTokenParams = @{
            Uri            = $env:ACTIONS_ID_TOKEN_REQUEST_URL
            Body           = @{
@@ -103,9 +103,9 @@ jobs:
           Add-AzEnvironment `
           -Name AzurePPE `
           -ActiveDirectoryEndpoint https://login.windows-ppe.net `
-          -ResourceManagerEndpoint https://management.azure.com/ `
+          -ResourceManagerEndpoint https://api-dogfood.resources.windows-int.net/ `
           -ActiveDirectoryServiceEndpointResourceId https://management.core.windows.net `
-          -GraphEndpoint https://graph.ppe.windows.net/ | out-null;
+          -GraphEndpoint https://graph.microsoft-ppe.com/ | out-null;
           $oidcTokenParams = @{
            Uri            = $env:ACTIONS_ID_TOKEN_REQUEST_URL
            Body           = @{
@@ -127,4 +127,5 @@ jobs:
         inlineScript: |
 
           ${{ github.workspace }}//.github/workflows/azure-sentinel-deploy-6f9bdc88-0120-452a-b2ba-747aeeb28e98.ps1
+
 
