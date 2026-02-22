@@ -65,58 +65,6 @@ jobs:
       if: ${{ steps.login1.outcome=='failure' }}
       run: powershell Start-Sleep -s 30
 
-    - name: Login to Azure (Attempt 2)
-      continue-on-error: true
-      id: login2
-      uses: azure/powershell@v2
-      with:
-        azPSVersion: 'latest'
-        inlineScript: |
-          Add-AzEnvironment `
-          -Name AzurePPE `
-          -ActiveDirectoryEndpoint https://login.windows-ppe.net `
-          -ResourceManagerEndpoint https://api-dogfood.resources.windows-int.net/ `
-          -ActiveDirectoryServiceEndpointResourceId https://management.core.windows.net `
-          -GraphEndpoint https://graph.microsoft-ppe.com/ | out-null;
-          $oidcTokenParams = @{
-           Uri            = $env:ACTIONS_ID_TOKEN_REQUEST_URL
-           Body           = @{
-                 audience = 'api://AzureADTokenExchange'
-           }
-           Authentication = 'Bearer'
-           Token          = $env:ACTIONS_ID_TOKEN_REQUEST_TOKEN | ConvertTo-SecureString -AsPlainText
-          }
-          $IdToken = (Invoke-RestMethod @oidcTokenParams).value
-          Connect-AzAccount -ServicePrincipal -Tenant ${{ secrets.AZURE_SENTINEL_TENANTID_6f9bdc880120452ab2ba747aeeb28e98 }} -Subscription ${{ secrets.AZURE_SENTINEL_SUBSCRIPTIONID_6f9bdc880120452ab2ba747aeeb28e98 }} -ApplicationId ${{ secrets.AZURE_SENTINEL_CLIENTID_6f9bdc880120452ab2ba747aeeb28e98 }} -Environment AzurePPE -FederatedToken $IdToken | out-null;
-
-    - name: Wait 30 seconds if login attempt 2 failed
-      if: ${{ steps.login2.outcome=='failure' }}
-      run: powershell Start-Sleep -s 30
-
-    - name: Login to Azure (Attempt 3)
-      continue-on-error: false
-      id: login3
-      uses: azure/powershell@v2
-      with:
-        azPSVersion: 'latest'
-        inlineScript: |
-          Add-AzEnvironment `
-          -Name AzurePPE `
-          -ActiveDirectoryEndpoint https://login.windows-ppe.net `
-          -ResourceManagerEndpoint https://api-dogfood.resources.windows-int.net/ `
-          -ActiveDirectoryServiceEndpointResourceId https://management.core.windows.net `
-          -GraphEndpoint https://graph.microsoft-ppe.com/ | out-null;
-          $oidcTokenParams = @{
-           Uri            = $env:ACTIONS_ID_TOKEN_REQUEST_URL
-           Body           = @{
-                 audience = 'api://AzureADTokenExchange'
-           }
-           Authentication = 'Bearer'
-           Token          = $env:ACTIONS_ID_TOKEN_REQUEST_TOKEN | ConvertTo-SecureString -AsPlainText
-          }
-          $IdToken = (Invoke-RestMethod @oidcTokenParams).value
-          Connect-AzAccount -ServicePrincipal -Tenant ${{ secrets.AZURE_SENTINEL_TENANTID_6f9bdc880120452ab2ba747aeeb28e98 }} -Subscription ${{ secrets.AZURE_SENTINEL_SUBSCRIPTIONID_6f9bdc880120452ab2ba747aeeb28e98 }} -ApplicationId ${{ secrets.AZURE_SENTINEL_CLIENTID_6f9bdc880120452ab2ba747aeeb28e98 }} -Environment AzurePPE -FederatedToken $IdToken | out-null;
-
     - name: Checkout
       uses: actions/checkout@v3
 
@@ -127,5 +75,6 @@ jobs:
         inlineScript: |
 
           ${{ github.workspace }}//.github/workflows/azure-sentinel-deploy-6f9bdc88-0120-452a-b2ba-747aeeb28e98.ps1
+
 
 
