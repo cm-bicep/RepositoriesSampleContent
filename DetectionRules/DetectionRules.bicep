@@ -6,18 +6,18 @@ resource test_detection_rule 'Microsoft.Security/detectionRules@2026-01-01-previ
   displayName: 'Hello from Github'
   isEnabled: false
   queryCondition: {
-    queryText: 'DeviceEvents\r\n| take 10'
+    queryText: 'DeviceEvents\r\n| take 1'
   }
   schedule: {
     period: '24H'
   }
   detectionAction: {
     alertTemplate: {
-      title: 'test bicep detection rule'
-      description: 'test bicep detection rule'
+      title: 'Hello from Github'
+      description: 'test'
       severity: 'medium'
       category: 'Exfiltration'
-      recommendedActions: 'test bicep detection rule'
+      recommendedActions: 'test'
       mitreTechniques: []
       impactedAssets: [
         {
