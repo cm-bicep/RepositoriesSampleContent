@@ -4,9 +4,9 @@ extension MicrosoftSecurity
 
 resource test_detection_rule 'Microsoft.Security/detectionRules@2026-01-01-preview' = {
   displayName: 'Hello from Github'
-  isEnabled: true
+  isEnabled: false
   queryCondition: {
-    queryText: 'DeviceEvents\r\n| take 1'
+    queryText: 'DeviceEvents\r\n| take 10'
   }
   schedule: {
     period: '24H'
@@ -15,7 +15,7 @@ resource test_detection_rule 'Microsoft.Security/detectionRules@2026-01-01-previ
     alertTemplate: {
       title: 'Hello from Github'
       description: 'test'
-      severity: 'low'
+      severity: 'medium'
       category: 'Exfiltration'
       recommendedActions: 'test'
       mitreTechniques: []
