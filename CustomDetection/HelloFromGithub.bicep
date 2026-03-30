@@ -4,18 +4,18 @@ extension MicrosoftSecurity
 
 resource test_detection_rule 'Microsoft.Security/detectionRules@2026-01-01-preview' = {
   displayName: 'Hello from Github'
-  isEnabled: false
+  isEnabled: true
   queryCondition: {
-    queryText: 'DeviceEvents\r\n| take 10'
+    queryText: 'DeviceEvents\r\n| take 1'
   }
   schedule: {
-    period: '12H'
+    period: '24H'
   }
   detectionAction: {
     alertTemplate: {
       title: 'Hello from Github'
       description: 'test'
-      severity: 'medium'
+      severity: 'low'
       category: 'Exfiltration'
       recommendedActions: 'test'
       mitreTechniques: []
@@ -31,10 +31,6 @@ resource test_detection_rule 'Microsoft.Security/detectionRules@2026-01-01-previ
         {
           '@odata.type': '#microsoft.graph.security.impactedUserAsset'
           identifier: 'accountSid'
-        }
-        {
-          '@odata.type': '#microsoft.graph.security.impactedMailboxAsset'
-          identifier: 'initiatingProcessAccountUpn'
         }
       ]
     }
